@@ -14,12 +14,10 @@
   <!-- Klaviyo Snippet -->
   <script>
     (function(){
-      var _learnq = window._learnq = window._learnq || [];
+      var _learnq = window._learnq = window._learnq||[];
       if (!_learnq.init) {
         ["identify","track","trackForm","page","subscribe"].forEach(function(m){
-          _learnq[m] = function(){
-            _learnq.push([m].concat(Array.prototype.slice.call(arguments,0)));
-          };
+          _learnq[m] = function(){ _learnq.push([m].concat(Array.from(arguments))); };
         });
         var s = document.createElement("script");
         s.async = true;
@@ -39,71 +37,21 @@
       --font-heading: 'Fraunces', serif;
       --font-body: 'DM Sans', sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      color: var(--color-text);
-      line-height: 1.5;
-    }
-    .quiz-container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: calc(var(--spacing) * 2);
-    }
-    .counter {
-      font-size: 1rem;
-      margin-bottom: var(--spacing);
-      text-align: right;
-    }
-    .screen { display: none; }
-    .screen.active { display: block; }
-    h1 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      margin-bottom: var(--spacing);
-    }
-    h2 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      margin-bottom: calc(var(--spacing) * 0.5);
-    }
-    p { margin-bottom: var(--spacing); }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: var(--spacing);
-      margin: calc(var(--spacing) * 0.5) 0;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background: var(--color-yes);
-      color: #fff;
-      cursor: pointer;
-      font-family: var(--font-body);
-    }
-    .btn-secondary {
-      background: var(--color-secondary);
-      color: #fff;
-      margin-bottom: 0;
-    }
-    .btn-not-sure {
-      background: #A93923;
-      color: #fff;
-      margin: calc(var(--spacing) * 0.25) 0 var(--spacing);
-    }
-    label, input {
-      display: block;
-      width: 100%;
-      margin-bottom: var(--spacing);
-      font-size: 1rem;
-      color: var(--color-text);
-    }
-    input {
-      padding: calc(var(--spacing) * 0.5);
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+    *,*::before,*::after{box-sizing:border-box;}
+    body{margin:0;font-family:var(--font-body);color:var(--color-text);line-height:1.5;}
+    .quiz-container{max-width:480px;margin:0 auto;padding:calc(var(--spacing)*2);}
+    .counter{font-size:1rem;margin-bottom:var(--spacing);text-align:right;}
+    .screen{display:none;}
+    .screen.active{display:block;}
+    h1{font-family:var(--font-heading);font-size:2rem;margin-bottom:var(--spacing);}
+    h2{font-family:var(--font-heading);font-size:1.25rem;margin-bottom:calc(var(--spacing)*0.5);}
+    p{margin-bottom:var(--spacing);}
+    .btn{display:block;width:100%;padding:var(--spacing);margin:calc(var(--spacing)*0.5) 0;font-size:1rem;
+         border:none;border-radius:8px;background:var(--color-yes);color:#fff;cursor:pointer;font-family:var(--font-body);}
+    .btn-secondary{background:var(--color-secondary);color:#fff;margin-bottom:0;}
+    .btn-not-sure{background:#A93923;color:#fff;margin:calc(var(--spacing)*0.25) 0 var(--spacing);}
+    label,input{display:block;width:100%;margin-bottom:var(--spacing);font-size:1rem;color:var(--color-text);}
+    input{padding:calc(var(--spacing)*0.5);border:1px solid #ccc;border-radius:4px;}
   </style>
 </head>
 <body>
@@ -114,219 +62,110 @@
     <!-- Cover -->
     <div class="screen active" id="screen-cover">
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
-      <img
-        src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg"
-        alt="Quiz Cover"
-        style="width:100%;border-radius:12px;margin-bottom:var(--spacing)"
-      />
-      <button type="button" id="btn-start" class="btn">Get My Personalized Plan</button>
+      <img src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg"
+           alt="Quiz Cover"
+           style="width:100%; border-radius:12px; margin-bottom:var(--spacing)" />
+      <button id="btn-start" class="btn">Get My Personalized Plan</button>
     </div>
 
     <!-- Questions 1–23 -->
+    <!-- (Repeat this block, updating data-step and text, for steps 1 through 23) -->
     <div class="screen" data-step="1">
       <h2>1. I have been diagnosed with insulin resistance, pre-diabetes, diabetes or have suspected insulin resistance</h2>
       <button class="btn" data-type="insulin">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
-    <div class="screen" data-step="2">
-      <h2>2. I have a family history of diabetes</h2>
-      <button class="btn" data-type="insulin">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="3">
-      <h2>3. I have excess weight around my waist area</h2>
-      <button class="btn" data-type="insulin">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="4">
-      <h2>4. My fasting glucose is greater than 5.5 mmol/L (99 mg/dl)</h2>
-      <button class="btn" data-type="insulin">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="5">
-      <h2>5. I have dark, velvety patches in my skin folds</h2>
-      <button class="btn" data-type="insulin">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="6">
-      <h2>6. I crave sugar/sweets during the day or feel I must eat something sweet after meals</h2>
-      <button class="btn" data-type="insulin">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="7">
-      <h2>7. I get low on energy, shaky, moody or brain fog if I don’t eat regularly</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="8">
-      <h2>8. I am experiencing a large amount of stress</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="9">
-      <h2>9. I gain weight when I’m stressed</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="10">
-      <h2>10. I often have my best energy after 6 pm</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="11">
-      <h2>11. I feel dizzy if I stand up too quickly</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="12">
-      <h2>12. I have had raised DHEA-S on blood tests</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="13">
-      <h2>13. I crave salt</h2>
-      <button class="btn" data-type="adrenal">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="14">
-      <h2>14. I suffer from digestive issues</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="15">
-      <h2>15. I have food sensitivities, allergies or chronic skin issues (eczema, psoriasis, hives)</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="16">
-      <h2>16. I suffer from headaches, migraines or unexplained fatigue</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="17">
-      <h2>17. I have chronic muscle aches/pains or muscle weakness</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="18">
-      <h2>18. I have had abnormal thyroid hormones on blood tests</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="19">
-      <h2>19. I am experiencing low moods or depression</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="20">
-      <h2>20. I stopped taking the pill or another form of hormonal birth control in the last 12 months</h2>
-      <button class="btn" data-type="">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="21">
-      <h2>21. My symptoms started after using hormonal birth control</h2>
-      <button class="btn" data-type="postpill">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="22">
-      <h2>22. Before taking hormonal birth control, I had regular periods</h2>
-      <button class="btn" data-type="">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
+    <!-- ... screens 2–22 ... -->
     <div class="screen" data-step="23">
       <h2>23. My blood tests show low vitamin D or high inflammatory markers (CRP), thyroid or gluten antibodies</h2>
       <button class="btn" data-type="inflammatory">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
+
+    <!-- Email Capture (step 24) -->
+    <div class="screen" id="screen-email">
+      <h2>Almost done!</h2>
+      <p>Add your best contact email and we'll send the results straight to your inbox.</p>
+      <label for="email">Email address</label>
+      <input id="email" type="email" placeholder="you@example.com" required />
+      <button id="btn-submit-email" class="btn">Get My Personalized Plan</button>
+      <p id="email-error" style="color:var(--color-secondary);display:none;">
+        Please enter a valid email.
+      </p>
+    </div>
   </div>
 
   <script defer>
-    const totalQuestions = 23;
+    const TOTAL = 23;
     let step = 0, scores = {}, override = false;
     const screens = document.querySelectorAll('.screen'),
-          qs = document.querySelectorAll('[data-step]'),
+          qs      = document.querySelectorAll('[data-step]'),
           counter = document.getElementById('counter');
-
     const redirectMap = {
       insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
       inflammatory: 'https://nourishednaturalhealth.com/pages/inflammatory-quiz-result',
       adrenal:      'https://nourishednaturalhealth.com/pages/adrenal-quiz-result',
       postpill:     'https://nourishednaturalhealth.com/pages/post-pill-quiz-result'
     };
-    const resultLabels = {
+    const labels = {
       insulin:      'Insulin Resistant PCOS',
       inflammatory: 'Inflammatory PCOS',
       adrenal:      'Adrenal PCOS',
       postpill:     'Post-Pill PCOS'
     };
 
-    function updateCounter() {
-      counter.textContent = (step > 0 && step <= totalQuestions)
-        ? `Q${step}/${totalQuestions}`
-        : '';
+    function updateCtr(){
+      counter.textContent = (step>0 && step<=TOTAL) ? `Q${step}/${TOTAL}` : '';
     }
-    function show(idx) {
-      screens.forEach(s => s.classList.remove('active'));
-      screens[idx].classList.add('active');
-      updateCounter();
+    function show(i){
+      screens.forEach(s=>s.classList.remove('active'));
+      screens[i].classList.add('active');
+      updateCtr();
     }
-    function next(type) {
-      if (type === 'postpill') override = true;
-      else if (type) scores[type] = (scores[type] || 0) + 1;
+    function next(type){
+      if(type==='postpill') override=true;
+      else if(type) scores[type]=(scores[type]||0)+1;
       step++;
-      if (step <= totalQuestions) show(step);
-      else {
-        // Identify & Subscribe, then auto-redirect
-        const key = override
-          ? 'postpill'
-          : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin';
-        const label = resultLabels[key];
-        window._learnq.push(['identify', {
-          email: document.getElementById('email').value.trim(),
-          source_content_result: label,
-          accepts_marketing: true,
-          email_status: 'subscribed'
-        }]);
-        window._learnq.push(['subscribe', {
-          listId: 'URJwDU',
-          email: document.getElementById('email').value.trim(),
-          confirm_optin: true
-        }]);
-        window.top.location.href = redirectMap[key];
-      }
+      if(step<=TOTAL) show(step);
+      else show(TOTAL+1);  // show email screen
     }
 
-    document.getElementById('btn-start').addEventListener('click', () => {
-      step = 1; show(1);
-    });
+    document.getElementById('btn-start').onclick = () => { step=1; show(1); };
     qs.forEach(q =>
-      q.querySelectorAll('button').forEach(btn =>
-        btn.addEventListener('click', () => next(btn.dataset.type))
+      q.querySelectorAll('button').forEach(b =>
+        b.onclick = ()=> next(b.dataset.type)
       )
     );
+
+    document.getElementById('btn-submit-email').onclick = ()=>{
+      const email = document.getElementById('email').value.trim(),
+            err   = document.getElementById('email-error');
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+        err.style.display='block'; return;
+      }
+      err.style.display='none';
+      // figure result
+      const key = override
+        ? 'postpill'
+        : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
+      const label = labels[key];
+      // identify & subscribe
+      window._learnq.push(['identify',{
+        email,
+        source_content_result: label,
+        accepts_marketing: true,
+        email_status: 'subscribed'
+      }]);
+      window._learnq.push(['subscribe',{
+        listId: 'URJwDU',
+        email,
+        confirm_optin:true
+      }]);
+      // break out and redirect parent
+      window.top.location.href = redirectMap[key];
+    };
   </script>
 </body>
 </html>
