@@ -153,7 +153,7 @@
       <div class="progress-bar" id="progress-bar"></div>
     </div>
 
-    <!-- Cover Screen -->
+    <!-- Cover -->
     <div class="screen active" id="screen-cover">
       <h1>Get Your Personalized Vitamin Protocol</h1>
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
@@ -168,98 +168,104 @@
       <button type="button" class="btn-secondary" data-type="">No</button>
       <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
     </div>
-    <!-- repeat steps 2–23 similarly -->
-
-    <!-- Email Capture -->
-    <div class="screen" id="screen-email">
-      <h2>Almost done!</h2>
-      <p>Add your best contact email and we'll send the results straight to your inbox.</p>
-      <label for="email">Email address</label>
-      <input type="email" id="email" placeholder="you@example.com" required />
-      <button type="button" class="btn" id="btn-submit-email">Get My Personalized Plan</button>
-      <p id="email-error" style="color:var(--color-secondary); display:none;">Please enter a valid email.</p>
+    <div class="screen" data-step="2">
+      <h2>I have a family history of diabetes</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
     </div>
-
-    <!-- Result Screen -->
-    <div class="screen" id="screen-result">
-      <h2>Your result is ready!</h2>
-      <a href="#" class="btn" id="result-link">View My Results</a>
+    <div class="screen" data-step="3">
+      <h2>I have excess weight around my waist area</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
     </div>
-  </div>
-
-  <script defer>
-    const questionScreens = document.querySelectorAll('[data-step]');
-    const totalQuestions = questionScreens.length;
-    let scores = {}, override = false, stepIndex = 0;
-    const screens = document.querySelectorAll('.screen');
-    const progressBar = document.getElementById('progress-bar');
-    const redirectMap = {
-      insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
-      inflammatory: 'https://nourishednaturalhealth.com/pages/inflammatory-quiz-result',
-      adrenal:      'https://nourishednaturalhealth.com/pages/adrenal-quiz-result',
-      postpill:     'https://nourishednaturalhealth.com/pages/post-pill-quiz-result'
-    };
-    const resultLabels = {
-      insulin:      'Insulin Resistant PCOS',
-      inflammatory: 'Inflammatory PCOS',
-      adrenal:      'Adrenal PCOS',
-      postpill:     'Post-Pill PCOS'
-    };
-    const KLAV_LIST_ID = 'URJwDU';
-
-    function updateProgress() {
-      const pct = ((stepIndex) / totalQuestions) * 100;
-      progressBar.style.width = pct + '%';
-    }
-    function showScreen(idx) {
-      screens.forEach(s => s.classList.remove('active'));
-      screens[idx].classList.add('active');
-      updateProgress();
-    }
-    function nextStep(type) {
-      if (type === 'postpill') override = true;
-      else if (type) scores[type] = (scores[type] || 0) + 1;
-      stepIndex++;
-      if (stepIndex <= totalQuestions) {
-        showScreen(stepIndex);
-      } else {
-        // move to email screen
-        showScreen(totalQuestions + 1);
-      }
-    }
-
-    document.getElementById('btn-start').addEventListener('click', () => {
-      stepIndex = 1;
-      showScreen(1);
-    });
-
-    questionScreens.forEach((scr, i) => {
-      scr.querySelectorAll('.btn, .btn-secondary, .btn-not-sure').forEach(btn => {
-        btn.addEventListener('click', () => nextStep(btn.dataset.type));
-      });
-    });
-
-    document.getElementById('btn-submit-email').addEventListener('click', () => {
-      const email = document.getElementById('email').value.trim();
-      const err = document.getElementById('email-error');
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        err.style.display = 'block';
-        return;
-      }
-      err.style.display = 'none';
-
-      const key = override
-        ? 'postpill'
-        : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
-      const label = resultLabels[key];
-
-      window._learnq.push(['identify',  { email, source_content_result: label }]);
-      window._learnq.push(['subscribe', { listId: KLAV_LIST_ID, email }]);
-
-      document.getElementById('result-link').href = redirectMap[key];
-      // show result
-      showScreen(totalQuestions + 2);
-    });
-  </script>
-</body>
-</html>
+    <div class="screen" data-step="4">
+      <h2>My fasting glucose is greater than 5.5 mmol/L (99 mg/dl)</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="5">
+      <h2>I have dark, velvety patches in my skin folds</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="6">
+      <h2>I crave sugar/sweets during the day or feel I must eat something sweet after meals</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="7">
+      <h2>I get low on energy, shaky, moody or brain fog if I don’t eat regularly</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="8">
+      <h2>I am experiencing a large amount of stress</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="9">
+      <h2>I gain weight when I’m stressed</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="10">
+      <h2>I often have my best energy after 6 pm</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="11">
+      <h2>I feel dizzy if I stand up too quickly</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="12">
+      <h2>I have had raised DHEA-S on blood tests</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="13">
+      <h2>I crave salt</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-**sure**" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="14">
+      <h2>I suffer from digestive issues</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="15">
+      <h2>I have food sensitivities, allergies or chronic skin issues (eczema, psoriasis, hives)</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="16">
+      <h2>I suffer from headaches, migraines or unexplained fatigue</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="17">
+      <h2>I have chronic muscle aches/pains or muscle weakness</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="18">
+      <h2>I have had abnormal thyroid hormones on blood tests</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn-secondary" data-type="">No</button>
+      <button type="button
