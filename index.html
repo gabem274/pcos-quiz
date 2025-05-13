@@ -32,6 +32,7 @@
     :root {
       --color-yes: #E51550;
       --color-secondary: #06604A;
+      --color-progress: #BC0B40;
       --color-text: #1e1b1c;
       --spacing: 1rem;
       --font-heading: 'Fraunces', serif;
@@ -41,7 +42,12 @@
     body { margin:0; font-family:var(--font-body); color:var(--color-text); line-height:1.5; }
     .quiz-container { max-width:480px; margin:0 auto; padding:calc(var(--spacing)*2); }
     .progress-container { width:100%; background:var(--color-text); opacity:0.1; border-radius:4px; overflow:hidden; height:8px; margin-bottom:var(--spacing); }
-    .progress-bar { width:0%; height:100%; background:var(--color-yes); transition:width .3s ease; }
+    .progress-bar {
+      width:0%;
+      height:100%;
+      background: var(--color-progress);
+      transition:width .3s ease;
+    }
     .screen { display:none; }
     .screen.active { display:block; }
     h1 { font-family:var(--font-heading); font-size:2rem; margin-bottom:var(--spacing); }
@@ -95,7 +101,8 @@
 
   <script defer>
     const questionScreens = document.querySelectorAll('[data-step]');
-    const totalQuestions = questionScreens.length;
+    // Total number of questions hardcoded to ensure progress meter works even if screens are templated
+    const totalQuestions = 23;
     let scores = {}, override = false, stepIndex = 0;
     const screens = document.querySelectorAll('.screen');
     const progressBar = document.getElementById('progress-bar');
