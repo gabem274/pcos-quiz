@@ -208,7 +208,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
 
-    <!-- Email Capture (step 24) -->
+  <!-- Email Capture (step 24) -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
       <p>Add your best contact email and we'll send the results straight to your inbox.</p>
@@ -216,7 +216,8 @@
       <input id="email" type="email" placeholder="you@example.com" required />
       <button id="btn-submit-email" class="btn">Get My Personalized Plan</button>
       <p id="email-error" style="color:var(--color-secondary);display:none;">
-        Please enter a valid email.</p>
+        Please enter a valid email.
+      </p>
     </div>
 
     <!-- Results (step 25) -->
@@ -227,9 +228,10 @@
   </div>
 
   <script defer>
+    // Constants & state
     const TOTAL = 23,
           screens = document.querySelectorAll('.screen'),
-          qs      = document.querySelectorAll('[data-step]'),
+          qs = document.querySelectorAll('[data-step]'),
           counter = document.getElementById('counter'),
           redirectMap = {
             insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
@@ -243,70 +245,69 @@
             adrenal:      'Adrenal PCOS',
             postpill:     'Post-Pill PCOS'
           };
-    let step=0,scores={},override=false;
+    let step=0, scores={}, override=false;
 
-    function updateCtr(){
-      counter.textContent = step>0 && step<=TOTAL
-        ? `Q${step}/${TOTAL}` : '';
+    // Helpers
+    function updateCounter() {
+      counter.textContent = (step>0&&step<=TOTAL)?`Q${step}/${TOTAL}`:'';
     }
-    function show(i){
+    function showScreen(i) {
       screens.forEach(s=>s.classList.remove('active'));
       screens[i].classList.add('active');
-      updateCtr();
+      updateCounter();
     }
-
-    function next(type){
+    function next(type) {
       if(type==='postpill') override=true;
       else if(type) scores[type]=(scores[type]||0)+1;
       step++;
-      if(step<=TOTAL) show(step);
-      else show(TOTAL+1); // show email screen
+      if(step<=TOTAL) showScreen(step);
+      else showScreen(TOTAL+1); // go to email screen
     }
 
-    document.getElementById('btn-start').onclick = ()=>{step=1;show(1);};
+    // Init
+    document.getElementById('btn-start').addEventListener('click', ()=>{ step=1; showScreen(1); });
     qs.forEach(q=>
-      q.querySelectorAll('button').forEach(b=>b.onclick=()=>next(b.dataset.type))
+      q.querySelectorAll('button').forEach(b=>
+        b.addEventListener('click', ()=> next(b.dataset.type))
+      )
     );
 
-    // email screen submit
-    document.getElementById('btn-submit-email').onclick = ()=>{
-      const email=document.getElementById('email').value.trim(),
-            err=document.getElementById('email-error');
+    // Email submission
+    document.getElementById('btn-submit-email').addEventListener('click', ()=>{
+      const email = document.getElementById('email').value.trim(),
+            err   = document.getElementById('email-error');
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
         err.style.display='block'; return;
       }
       err.style.display='none';
-
-      // determine key/label
-      const key=override
-        ?'postpill'
-        :Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin',
-            label=labels[key];
-
-      // Klaviyo
+      // determine result
+      const key = override
+          ? 'postpill'
+          : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin',
+            label = labels[key];
+      // Klaviyo calls
       window._learnq.push(['identify',{
         email,
-        source_content_result:label,
-        accepts_marketing:true,
-        email_status:'subscribed'
+        source_content_result: label,
+        accepts_marketing: true,
+        email_status: 'subscribed'
       }]);
       window._learnq.push(['subscribe',{
-        listId:'URJwDU',
+        listId: 'URJwDU',
         email,
-        confirm_optin:true
+        confirm_optin: true
       }]);
+      // show the View Results button
+      showScreen(TOTAL+2);
+    });
 
-      // show result button screen
-      show(TOTAL+2);
-    };
-
-    // button redirect
-    document.getElementById('btn-view-results').onclick = ()=>{
-      const key=override
-        ?'postpill'
-        :Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin';
+    // View Results button redirect
+    document.getElementById('btn-view-results').addEventListener('click', ()=>{
+      const key = override
+          ? 'postpill'
+          : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
       window.top.location.href = redirectMap[key];
-    };
+    });
   </script>
 </body>
 </html>
