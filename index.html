@@ -104,11 +104,6 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    #screen-result .btn {
-      width: auto;
-      margin: var(--spacing) auto;
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -122,13 +117,13 @@
       <img
         src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg"
         alt="Quiz Cover"
-        style="width:100%; border-radius:12px; margin-bottom:var(--spacing)"
+        style="width:100%;border-radius:12px;margin-bottom:var(--spacing)"
       />
       <button type="button" id="btn-start" class="btn">Get My Personalized Plan</button>
     </div>
 
     <!-- Questions 1–23 -->
-    <!-- (insert your 23 question blocks here, as in previous snippet) -->
+    <!-- (Insert your 23 question screens here; each .screen[data-step] with Yes/No/Not Sure buttons) -->
 
     <!-- Email Capture -->
     <div class="screen" id="screen-email">
@@ -138,12 +133,6 @@
       <input id="email" type="email" placeholder="you@example.com" required />
       <button id="btn-submit-email" class="btn">Get My Personalized Plan</button>
       <p id="email-error" style="color:var(--color-secondary);display:none;">Please enter a valid email.</p>
-    </div>
-
-    <!-- Result -->
-    <div class="screen" id="screen-result">
-      <h2>Your result is ready!</h2>
-      <a id="result-link" class="btn" href="#">View My Results</a>
     </div>
   </div>
 
@@ -168,7 +157,9 @@
     };
 
     function updateCounter() {
-      counter.textContent = (step > 0 && step <= totalQuestions) ? `Q${step}/${totalQuestions}` : '';
+      counter.textContent = (step > 0 && step <= totalQuestions)
+        ? `Q${step}/${totalQuestions}`
+        : '';
     }
     function show(idx) {
       screens.forEach(s => s.classList.remove('active'));
@@ -186,12 +177,11 @@
     document.getElementById('btn-start').addEventListener('click', () => {
       step = 1; show(1);
     });
-
-    qs.forEach(q => {
-      q.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => next(btn.dataset.type));
-      });
-    });
+    qs.forEach(q =>
+      q.querySelectorAll('button').forEach(btn =>
+        btn.addEventListener('click', () => next(btn.dataset.type))
+      )
+    );
 
     document.getElementById('btn-submit-email').addEventListener('click', () => {
       const email = document.getElementById('email').value.trim();
@@ -202,28 +192,28 @@
       }
       err.style.display = 'none';
 
+      // Determine result
       const key = override
         ? 'postpill'
         : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
 
-      // Identify with Accepts Marketing & Email Status = Subscribed
+      // 1) Identify & mark subscribed
       window._learnq.push(['identify', {
         email,
         source_content_result: label,
         accepts_marketing: true,
         email_status: 'subscribed'
       }]);
-
-      // Subscribe with confirm_optin
+      // 2) Subscribe to list
       window._learnq.push(['subscribe', {
         listId: 'URJwDU',
         email,
         confirm_optin: true
       }]);
 
-      document.getElementById('result-link').href = redirectMap[key];
-      show(totalQuestions + 2);
+      // Auto‐redirect parent window to results page
+      window.top.location.href = redirectMap[key];
     });
   </script>
 </body>
