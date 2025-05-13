@@ -16,22 +16,21 @@
   (function(){
     var _learnq = window._learnq = window._learnq || [];
     if (!_learnq.init) {
-      // NOTE: we do NOT include "push" here to avoid overriding the native Array.push
       _learnq.methods = ["identify","track","trackForm","page","subscribe"];
       _learnq.factory = function(method){
         return function(){
           _learnq.push([method].concat(Array.prototype.slice.call(arguments,0)));
         };
       };
-      for (var i=0; i<_learnq.methods.length; i++){
+      for (var i = 0; i < _learnq.methods.length; i++){
         var m = _learnq.methods[i];
         _learnq[m] = _learnq.factory(m);
       }
       _learnq.load = function(apiKey){
         var s = document.createElement("script");
-        s.type = "text/javascript"; s.async = true;
+        s.async = true;
         s.src = "https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=" + apiKey;
-        document.getElementsByTagName("head")[0].appendChild(s);
+        document.head.appendChild(s);
       };
       _learnq.load("S4cYEr");  // ← your public API Key
       _learnq.init = true;
@@ -72,11 +71,10 @@
 <body>
 
   <div class="quiz-container">
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
+    <!-- Progress Bar -->
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
 
-    <!-- 1) Cover -->
+    <!-- 1) Cover Screen -->
     <div class="screen active" id="screen-cover">
       <h1>Get Your Personalized Vitamin Protocol</h1>
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
@@ -88,14 +86,122 @@
       <button type="button" class="btn" id="btn-start">Start Assessment</button>
     </div>
 
-    <!-- 2) Questions 1–23 -->
-    <!-- (copy each of the 23 question blocks exactly as before) -->
+    <!-- 2) Question Screens (1–23) -->
     <div class="screen" data-step="1">
       <h2>I have been diagnosed with insulin resistance, pre-diabetes, diabetes or have suspected insulin resistance</h2>
       <button type="button" class="btn" data-type="insulin">Yes</button>
       <button type="button" class="btn btn-secondary" data-type="">No</button>
     </div>
-    <!-- … through data-step="23" … -->
+    <div class="screen" data-step="2">
+      <h2>I have a family history of diabetes</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="3">
+      <h2>I have excess weight around my waist area</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="4">
+      <h2>My fasting glucose is greater than 5.5 mmol/L (99 mg/dl)</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="5">
+      <h2>I have dark, velvety patches in my skin folds</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="6">
+      <h2>I crave sugar/sweets during the day or feel I must eat something sweet after meals</h2>
+      <button type="button" class="btn" data-type="insulin">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="7">
+      <h2>I get low on energy, shaky, moody or brain fog if I don’t eat regularly</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="8">
+      <h2>I am experiencing a large amount of stress</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="9">
+      <h2>I gain weight when I’m stressed</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="10">
+      <h2>I often have my best energy after 6pm</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="11">
+      <h2>I feel dizzy if I stand up too quickly</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="12">
+      <h2>I have had raised DHEA-S on blood tests</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="13">
+      <h2>I crave salt</h2>
+      <button type="button" class="btn" data-type="adrenal">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="14">
+      <h2>I suffer from digestive issues</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="15">
+      <h2>I have food sensitivities, food allergies or chronic skin conditions such as eczema, hives, psoriasis</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="16">
+      <h2>I suffer from headaches, migraines or unexplained fatigue</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="17">
+      <h2>I have chronic muscle aches/pains or muscle weakness</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="18">
+      <h2>I have had abnormal thyroid hormones on blood tests</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="19">
+      <h2>I am experiencing low moods or depression</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="20">
+      <h2>I stopped taking the pill or using another form of hormonal birth control in the last 12 months</h2>
+      <button type="button" class="btn" data-type="postpill">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="21">
+      <h2>My symptoms started after using hormonal birth control</h2>
+      <button type="button" class="btn" data-type="postpill">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="22">
+      <h2>Before taking hormonal birth control, I had regular periods</h2>
+      <button type="button" class="btn" data-type="postpill">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
+    <div class="screen" data-step="23">
+      <h2>My blood tests show low vitamin D, high inflammatory markers (e.g. CRP), thyroid antibodies or gluten antibodies</h2>
+      <button type="button" class="btn" data-type="inflammatory">Yes</button>
+      <button type="button" class="btn btn-secondary" data-type="">No</button>
+    </div>
 
     <!-- 3) Email Capture -->
     <div class="screen" id="screen-email">
@@ -107,7 +213,7 @@
       <p id="email-error" style="color:#c00; display:none;">Please enter a valid email.</p>
     </div>
 
-    <!-- 4) Result -->
+    <!-- 4) Result Screen -->
     <div class="screen" id="screen-result">
       <h2>Your result is ready!</h2>
       <a href="#" class="btn" id="result-link">View My Results</a>
@@ -167,13 +273,12 @@
       }
       err.style.display = 'none';
 
-      // Determine final
       const key = override
         ? 'postpill'
         : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
 
-      // Klaviyo Web Tracking calls (CORS-safe)
+      // Klaviyo Web Tracking calls
       window._learnq.push(['identify',  { email, source_content_result: label }]);
       window._learnq.push(['subscribe', { listId: KLAV_LIST_ID, email }]);
 
