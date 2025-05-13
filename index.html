@@ -1,3 +1,7 @@
+ChatGPT said:
+html
+Copy
+Edit
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -266,7 +270,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
 
-  <!-- Email Capture -->
+ <!-- Email Capture -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
       <p>Add your best contact email and we'll send the results straight to your inbox.</p>
@@ -343,11 +347,12 @@
         : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
 
-      // Identify with Accepts Marketing = true
+      // Identify with Accepts Marketing & Email Status = Subscribed
       window._learnq.push(['identify', {
         email,
         source_content_result: label,
-        accepts_marketing: true
+        accepts_marketing: true,
+        email_status: 'subscribed'
       }]);
 
       // Subscribe with confirm_optin
@@ -363,4 +368,3 @@
   </script>
 </body>
 </html>
-
