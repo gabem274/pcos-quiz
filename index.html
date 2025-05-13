@@ -6,15 +6,20 @@
   <title>PCOS Quiz – Nourished Natural Health</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Fraunces:opsz,wght@9..144,500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Fraunces:opsz,wght@9..144,500&display=swap"
+    rel="stylesheet"
+  />
 
-  <!-- Klaviyo Snippet -->
+  <!-- Klaviyo Web Tracking Snippet -->
   <script>
     (function(){
       var _learnq = window._learnq = window._learnq || [];
       if (!_learnq.init) {
         ["identify","track","trackForm","page","subscribe"].forEach(function(m){
-          _learnq[m] = function(){ _learnq.push([m].concat(Array.prototype.slice.call(arguments,0))); };
+          _learnq[m] = function(){
+            _learnq.push([m].concat(Array.prototype.slice.call(arguments,0)));
+          };
         });
         var s = document.createElement("script");
         s.async = true;
@@ -285,6 +290,7 @@
     const screens = document.querySelectorAll('.screen');
     const qs = document.querySelectorAll('[data-step]');
     const counter = document.getElementById('counter');
+
     const redirectMap = {
       insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
       inflammatory: 'https://nourishednaturalhealth.com/pages/inflammatory-quiz-result',
@@ -332,12 +338,26 @@
         return;
       }
       err.style.display = 'none';
+
       const key = override
         ? 'postpill'
         : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
-      window._learnq.push(['identify', { email, source_content_result: label }]);
-      window._learnq.push(['subscribe', { listId: 'URJwDU', email }]);
+
+      // Identify with opt-in
+      window._learnq.push(['identify', {
+        email,
+        source_content_result: label,
+        marketing_consent: true
+      }]);
+
+      // Subscribe with confirm_optin
+      window._learnq.push(['subscribe', {
+        listId: 'URJwDU',
+        email,
+        confirm_optin: true
+      }]);
+
       document.getElementById('result-link').href = redirectMap[key];
       show(totalQuestions + 2);
     });
