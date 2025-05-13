@@ -14,16 +14,16 @@
   <!-- Klaviyo Snippet -->
   <script>
     (function(){
-      var _learnq=window._learnq=window._learnq||[];
-      if(!_learnq.init){
+      var _learnq = window._learnq = window._learnq||[];
+      if (!_learnq.init) {
         ["identify","track","trackForm","page","subscribe"].forEach(function(m){
-          _learnq[m]=function(){_learnq.push([m].concat(Array.prototype.slice.call(arguments,0)));};
+          _learnq[m] = function(){ _learnq.push([m].concat(Array.from(arguments))); };
         });
-        var s=document.createElement("script");
-        s.async=true;
-        s.src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=S4cYEr";
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=S4cYEr";
         document.head.appendChild(s);
-        _learnq.init=true;
+        _learnq.init = true;
       }
     })();
   </script>
@@ -37,21 +37,23 @@
       --font-heading: 'Fraunces', serif;
       --font-body: 'DM Sans', sans-serif;
     }
-    *,*::before,*::after{box-sizing:border-box;}
-    body{margin:0;font-family:var(--font-body);color:var(--color-text);line-height:1.5;}
-    .quiz-container{max-width:480px;margin:0 auto;padding:calc(var(--spacing)*2);}
-    .counter{font-size:1rem;margin-bottom:var(--spacing);text-align:right;}
-    .screen{display:none;} .screen.active{display:block;}
-    h1{font-family:var(--font-heading);font-size:2rem;margin-bottom:var(--spacing);}
-    h2{font-family:var(--font-heading);font-size:1.25rem;margin-bottom:calc(var(--spacing)*0.5);}
-    p{margin-bottom:var(--spacing);}
-    .btn{display:block;width:100%;padding:var(--spacing);margin:calc(var(--spacing)*0.5) 0;
-         font-size:1rem;border:none;border-radius:8px;background:var(--color-yes);color:#fff;
-         cursor:pointer;font-family:var(--font-body);}
-    .btn-secondary{background:var(--color-secondary);color:#fff;margin-bottom:0;}
-    .btn-not-sure{background:#A93923;color:#fff;margin:calc(var(--spacing)*0.25) 0 var(--spacing);}
-    label,input{display:block;width:100%;margin-bottom:var(--spacing);font-size:1rem;color:var(--color-text);}
-    input{padding:calc(var(--spacing)*0.5);border:1px solid #ccc;border-radius:4px;}
+    *,*::before,*::after { box-sizing: border-box; }
+    body { margin:0; font-family:var(--font-body); color:var(--color-text); line-height:1.5; }
+    .quiz-container { max-width:480px; margin:0 auto; padding:calc(var(--spacing)*2); }
+    .counter { font-size:1rem; margin-bottom:var(--spacing); text-align:right; }
+    .screen { display:none; }
+    .screen.active { display:block; }
+    h1 { font-family:var(--font-heading); font-size:2rem; margin-bottom:var(--spacing); }
+    h2 { font-family:var(--font-heading); font-size:1.25rem; margin-bottom:calc(var(--spacing)*0.5); }
+    p { margin-bottom:var(--spacing); }
+    .btn { display:block; width:100%; padding:var(--spacing); margin:calc(var(--spacing)*0.5) 0; 
+           font-size:1rem; border:none; border-radius:8px; background:var(--color-yes); color:#fff;
+           cursor:pointer; font-family:var(--font-body); }
+    .btn-secondary { background:var(--color-secondary); color:#fff; margin-bottom:0; }
+    .btn-not-sure { background:#A93923; color:#fff; margin:calc(var(--spacing)*0.25) 0 var(--spacing); }
+    label,input { display:block; width:100%; margin-bottom:var(--spacing); font-size:1rem; color:var(--color-text); }
+    input { padding:calc(var(--spacing)*0.5); border:1px solid #ccc; border-radius:4px; }
+    a.btn { text-decoration:none; text-align:center; display:block; }
   </style>
 </head>
 <body>
@@ -161,8 +163,8 @@
     </div>
     <div class="screen" data-step="16">
       <h2>16. I suffer from headaches, migraines or unexplained fatigue</h2>
-      <button class="btn" data-type="inflammatory">Yes</button**
-      ><button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn" data-type="inflammatory">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="17">
@@ -172,7 +174,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="18">
-      <h2>18. I have had abnormal thyroid hormones on blood tests</h2**>
+      <h2>18. I have had abnormal thyroid hormones on blood tests</h2>
       <button class="btn" data-type="inflammatory">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
@@ -193,8 +195,8 @@
       <h2>21. My symptoms started after using hormonal birth control</h2>
       <button class="btn" data-type="postpill">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button**
-    ></div>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
     <div class="screen" data-step="22">
       <h2>22. Before taking hormonal birth control, I had regular periods</h2>
       <button class="btn" data-type="">Yes</button>
@@ -208,7 +210,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
 
-  <!-- Email Capture (step 24) -->
+    <!-- Email Capture (step 24) -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
       <p>Add your best contact email and we'll send the results straight to your inbox.</p>
@@ -223,15 +225,14 @@
     <!-- Results (step 25) -->
     <div class="screen" id="screen-result">
       <h2>Your result is ready!</h2>
-      <button id="btn-view-results" class="btn">View My Results</button>
+      <a id="result-link" class="btn" target="_top" href="#">View My Results</a>
     </div>
   </div>
 
   <script defer>
-    // Constants & state
     const TOTAL = 23,
           screens = document.querySelectorAll('.screen'),
-          qs = document.querySelectorAll('[data-step]'),
+          qs      = document.querySelectorAll('[data-step]'),
           counter = document.getElementById('counter'),
           redirectMap = {
             insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
@@ -245,9 +246,8 @@
             adrenal:      'Adrenal PCOS',
             postpill:     'Post-Pill PCOS'
           };
-    let step=0, scores={}, override=false;
+    let step = 0, scores = {}, override = false;
 
-    // Helpers
     function updateCounter() {
       counter.textContent = (step>0&&step<=TOTAL)?`Q${step}/${TOTAL}`:'';
     }
@@ -258,21 +258,21 @@
     }
     function next(type) {
       if(type==='postpill') override=true;
-      else if(type) scores[type]=(scores[type]||0)+1;
+      else if(type) scores[type] = (scores[type]||0)+1;
       step++;
       if(step<=TOTAL) showScreen(step);
-      else showScreen(TOTAL+1); // go to email screen
+      else showScreen(TOTAL+1); // email screen
     }
 
-    // Init
-    document.getElementById('btn-start').addEventListener('click', ()=>{ step=1; showScreen(1); });
+    document.getElementById('btn-start').addEventListener('click', ()=>{
+      step=1; showScreen(1);
+    });
     qs.forEach(q=>
       q.querySelectorAll('button').forEach(b=>
         b.addEventListener('click', ()=> next(b.dataset.type))
       )
     );
 
-    // Email submission
     document.getElementById('btn-submit-email').addEventListener('click', ()=>{
       const email = document.getElementById('email').value.trim(),
             err   = document.getElementById('email-error');
@@ -280,12 +280,10 @@
         err.style.display='block'; return;
       }
       err.style.display='none';
-      // determine result
       const key = override
           ? 'postpill'
           : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin',
             label = labels[key];
-      // Klaviyo calls
       window._learnq.push(['identify',{
         email,
         source_content_result: label,
@@ -297,16 +295,10 @@
         email,
         confirm_optin: true
       }]);
-      // show the View Results button
+      // set link and show
+      const link = document.getElementById('result-link');
+      link.href = redirectMap[key];
       showScreen(TOTAL+2);
-    });
-
-    // View Results button redirect
-    document.getElementById('btn-view-results').addEventListener('click', ()=>{
-      const key = override
-          ? 'postpill'
-          : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
-      window.top.location.href = redirectMap[key];
     });
   </script>
 </body>
