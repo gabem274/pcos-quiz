@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,28 +6,20 @@
   <title>PCOS Quiz – Nourished Natural Health</title>
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Fraunces:opsz,wght@9..144,500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Fraunces:opsz,wght@9..144,500&display=swap" rel="stylesheet" />
 
-  <!-- Klaviyo Web Tracking Snippet -->
+  <!-- Klaviyo Snippet -->
   <script>
     (function(){
       var _learnq = window._learnq = window._learnq || [];
       if (!_learnq.init) {
-        _learnq.methods = ["identify","track","trackForm","page","subscribe"];
-        _learnq.factory = function(method){
-          return function(){ _learnq.push([method].concat(Array.prototype.slice.call(arguments,0))); };
-        };
-        _learnq.methods.forEach(m => _learnq[m] = _learnq.factory(m));
-        _learnq.load = apiKey => {
-          var s = document.createElement("script");
-          s.async = true;
-          s.src = "https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=" + apiKey;
-          document.head.appendChild(s);
-        };
-        _learnq.load("S4cYEr"); // public API key
+        ["identify","track","trackForm","page","subscribe"].forEach(function(m){
+          _learnq[m] = function(){ _learnq.push([m].concat(Array.prototype.slice.call(arguments,0))); };
+        });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=S4cYEr';
+        document.head.appendChild(s);
         _learnq.init = true;
       }
     })();
@@ -38,155 +29,108 @@
     :root {
       --color-yes: #E51550;
       --color-secondary: #06604A;
-      --color-progress: #BC0B40;
       --color-text: #1e1b1c;
       --spacing: 1rem;
       --font-heading: 'Fraunces', serif;
       --font-body: 'DM Sans', sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      color: var(--color-text);
-      line-height: 1.5;
-    }
-    .quiz-container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: calc(var(--spacing) * 2);
-    }
-    .progress-container {
-      width: 100%;
-      background: var(--color-text);
-      opacity: 0.1;
-      border-radius: 4px;
-      overflow: hidden;
-      height: 8px;
-      margin-bottom: var(--spacing);
-    }
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background: var(--color-progress);
-      transition: width .3s ease;
-    }
-    .screen {
-      display: none;
-    }
-    .screen.active {
-      display: block;
-    }
-    h1 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      margin-bottom: var(--spacing);
-    }
-    h2 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      margin-bottom: calc(var(--spacing) * 0.5);
-    }
-    p {
-      margin-bottom: var(--spacing);
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: var(--spacing);
-      margin: calc(var(--spacing) * 0.5) 0;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background: var(--color-yes);
-      color: #fff;
-      cursor: pointer;
-      font-family: var(--font-body);
-    }
-    .btn-secondary {
-      background: var(--color-secondary);
-      color: #fff;
-      font-family: var(--font-body);
-      margin-bottom: 0;
-    }
-    .btn-not-sure {
-      background: #A93923;
-      color: #fff;
-      font-family: var(--font-body);
-      margin: calc(var(--spacing) * 0.25) 0 var(--spacing);
-    }
-    label, input {
-      display: block;
-      width: 100%;
-      margin-bottom: var(--spacing);
-      font-size: 1rem;
-      color: var(--color-text);
-    }
-    input {
-      padding: calc(var(--spacing) * 0.5);
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    #screen-result .btn {
-      width: auto;
-      margin: var(--spacing) auto;
-      display: block;
-    }
+    *,*::before,*::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font-body); color: var(--color-text); line-height: 1.5; }
+    .quiz-container { max-width: 480px; margin: 0 auto; padding: calc(var(--spacing) * 2); }
+    .counter { font-size: 1rem; margin-bottom: var(--spacing); }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    h1 { font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--spacing); }
+    h2 { font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: calc(var(--spacing) * 0.5); }
+    p { margin-bottom: var(--spacing); }
+    .btn { display: block; width: 100%; padding: var(--spacing); margin: calc(var(--spacing) * 0.5) 0; font-size: 1rem; border: none; border-radius: 8px; background: var(--color-yes); color: #fff; cursor: pointer; font-family: var(--font-body); }
+    .btn-secondary { background: var(--color-secondary); color: #fff; font-family: var(--font-body); margin-bottom: 0; }
+    .btn-not-sure { background: #A93923; color: #fff; font-family: var(--font-body); margin: calc(var(--spacing) * 0.25) 0 var(--spacing); }
+    label,input { display: block; width: 100%; margin-bottom: var(--spacing); font-size: 1rem; color: var(--color-text); }
+    input { padding: calc(var(--spacing) * 0.5); border: 1px solid #ccc; border-radius: 4px; }
+    #screen-result .btn { width: auto; margin: var(--spacing) auto; display: block; }
   </style>
 </head>
 <body>
   <div class="quiz-container">
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
+    <h1 id="title">Get Your Personalized Vitamin Protocol</h1>
+    <div id="counter" class="counter"></div>
 
     <!-- Cover Screen -->
     <div class="screen active" id="screen-cover">
-      <h1>Get Your Personalized Vitamin Protocol</h1>
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
-      <img
-        src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg"
-        alt="Quiz Cover"
-        loading="lazy"
-        style="width:100%; border-radius:12px; margin-bottom:var(--spacing)"
-      />
+      <img src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg" alt="Quiz Cover" loading="lazy" style="width:100%; border-radius:12px; margin-bottom:var(--spacing)" />
       <button type="button" class="btn" id="btn-start">Get My Personalized Plan</button>
     </div>
 
-    <!-- Question Screens (1–23) -->
+    <!-- Questions 1–23 -->
     <div class="screen" data-step="1">
       <h2>I have been diagnosed with insulin resistance, pre-diabetes, diabetes or have suspected insulin resistance</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button" class="btn btn-not-sure" data-type="">Not Sure</button>
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="2">
       <h2>I have a family history of diabetes</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button" class="btn btn-not-sure" data-type="">Not Sure</button>
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="3">
       <h2>I have excess weight around my waist area</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button" class="btn btn-not-sure" data-type="">Not Sure</button>
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="4">
       <h2>My fasting glucose is greater than 5.5 mmol/L (99 mg/dl)</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button" class="btn btn-not-sure" data-type="">Not Sure</button>
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="5">
       <h2>I have dark, velvety patches in my skin folds</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button" class="btn btn-not-sure" data-type="">Not Sure</button>
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="6">
       <h2>I crave sugar/sweets during the day or feel I must eat something sweet after meals</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn btn-secondary" data-type="">No</button>
-      <button type="button```
+      <button class="btn" data-type="insulin">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="7">
+      <h2>I get low on energy, shaky, moody or brain fog if I don’t eat regularly</h2>
+      <button class="btn" data-type="inflammatory">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="8">
+      <h2>I am experiencing a large amount of stress</h2>
+      <button class="btn" data-type="adrenal">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="9">
+      <h2>I gain weight when I’m stressed</h2>
+      <button class="btn" data-type="adrenal">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="10">
+      <h2>I often have my best energy after 6 pm</h2>
+      <button class="btn" data-type="adrenal">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="11">
+      <h2>I feel dizzy if I stand up too quickly</h2>
+      <button class="btn" data-type="adrenal">Yes</button>
+      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button>
+    </div>
+    <div class="screen" data-step="12">
+      <h2>I have had raised DHEA-S on blood tests</h2>
+      <button class="btn" data-type="adrenal">Yes</button>
+      <button class="btn btn-secondary`
