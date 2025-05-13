@@ -17,9 +17,7 @@
       var _learnq = window._learnq = window._learnq || [];
       if (!_learnq.init) {
         ["identify","track","trackForm","page","subscribe"].forEach(function(m){
-          _learnq[m] = function(){
-            _learnq.push([m].concat(Array.prototype.slice.call(arguments,0)));
-          };
+          _learnq[m] = function(){ _learnq.push([m].concat(Array.prototype.slice.call(arguments,0))); };
         });
         var s = document.createElement("script");
         s.async = true;
@@ -126,6 +124,7 @@
       />
       <button type="button" id="btn-start" class="btn">Get My Personalized Plan</button>
     </div>
+
 
     <!-- Questions 1–23 -->
     <div class="screen" data-step="1">
@@ -267,7 +266,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
 
-    <!-- Email Capture -->
+  <!-- Email Capture -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
       <p>Add your best contact email and we'll send the results straight to your inbox.</p>
@@ -287,9 +286,9 @@
   <script defer>
     const totalQuestions = 23;
     let step = 0, scores = {}, override = false;
-    const screens = document.querySelectorAll('.screen');
-    const qs = document.querySelectorAll('[data-step]');
-    const counter = document.getElementById('counter');
+    const screens = document.querySelectorAll('.screen'),
+          qs = document.querySelectorAll('[data-step]'),
+          counter = document.getElementById('counter');
 
     const redirectMap = {
       insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
@@ -344,11 +343,11 @@
         : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
 
-      // Identify with opt-in
+      // Identify with Accepts Marketing = true
       window._learnq.push(['identify', {
         email,
         source_content_result: label,
-        marketing_consent: true
+        accepts_marketing: true
       }]);
 
       // Subscribe with confirm_optin
@@ -364,3 +363,4 @@
   </script>
 </body>
 </html>
+
