@@ -11,7 +11,7 @@
     rel="stylesheet"
   />
 
-  <!-- Klaviyo Web Tracking Snippet (fixed) -->
+  <!-- Klaviyo Web Tracking Snippet -->
   <script>
   (function(){
     var _learnq = window._learnq = window._learnq || [];
@@ -40,12 +40,12 @@
 
   <style>
     :root {
-      --color-cta:    #E51550;
+      --color-yes:       #E51550;
       --color-secondary: #06604A;
-      --color-text:   #1e1b1c;
-      --spacing:      1rem;
-      --font-heading: 'Fraunces', serif;
-      --font-body:    'DM Sans', sans-serif;
+      --color-text:      #1e1b1c;
+      --spacing:         1rem;
+      --font-heading:    'Fraunces', serif;
+      --font-body:       'DM Sans', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -71,7 +71,7 @@
     .progress-bar {
       width:0%;
       height:100%;
-      background:var(--color-cta);
+      background:var(--color-yes);
       transition:width .3s ease;
     }
     .screen {
@@ -106,7 +106,7 @@
       font-size:1rem;
       border:none;
       border-radius:8px;
-      background:var(--color-cta);
+      background:var(--color-yes);
       color:#fff;
       cursor:pointer;
       font-family:var(--font-body);
@@ -115,11 +115,13 @@
       background:var(--color-secondary);
       color:#fff;
       font-family:var(--font-body);
+      margin-bottom:0;
     }
     .btn-not-sure {
-      background:#999;
+      background:#A93923;
       color:#fff;
       font-family:var(--font-body);
+      margin:calc(var(--spacing)*0.25) 0 var(--spacing);
     }
     label, input {
       display:block;
@@ -147,9 +149,11 @@
 <body>
 
   <div class="quiz-container">
-    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
 
-    <!-- Cover -->
+    <!-- Cover Screen -->
     <div class="screen active" id="screen-cover">
       <h1>Get Your Personalized Vitamin Protocol</h1>
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
@@ -164,21 +168,9 @@
       <button type="button" class="btn-secondary" data-type="">No</button>
       <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
     </div>
-    <div class="screen" data-step="2">
-      <h2>I have a family history of diabetes</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn-secondary" data-type="">No</button>
-      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <div class="screen" data-step="3">
-      <h2>I have excess weight around my waist area</h2>
-      <button type="button" class="btn" data-type="insulin">Yes</button>
-      <button type="button" class="btn-secondary" data-type="">No</button>
-      <button type="button" class="btn-not-sure" data-type="">Not Sure</button>
-    </div>
-    <!-- repeat through step 23... -->
+    <!-- repeat steps 2–23 similarly -->
 
-    <!-- Email -->
+    <!-- Email Capture -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
       <p>Add your best contact email and we'll send the results straight to your inbox.</p>
@@ -188,7 +180,7 @@
       <p id="email-error" style="color:var(--color-secondary); display:none;">Please enter a valid email.</p>
     </div>
 
-    <!-- Result -->
+    <!-- Result Screen -->
     <div class="screen" id="screen-result">
       <h2>Your result is ready!</h2>
       <a href="#" class="btn" id="result-link">View My Results</a>
@@ -197,8 +189,8 @@
 
   <script defer>
     const questionScreens = document.querySelectorAll('[data-step]');
-    const totalSteps = questionScreens.length;
-    let scores = {}, override = false, step = 0;
+    const totalQuestions = questionScreens.length;
+    let scores = {}, override = false, stepIndex = 0;
     const screens = document.querySelectorAll('.screen');
     const progressBar = document.getElementById('progress-bar');
     const redirectMap = {
@@ -216,7 +208,8 @@
     const KLAV_LIST_ID = 'URJwDU';
 
     function updateProgress() {
-      progressBar.style.width = ((step / totalSteps) * 100) + '%';
+      const pct = ((stepIndex) / totalQuestions) * 100;
+      progressBar.style.width = pct + '%';
     }
     function showScreen(idx) {
       screens.forEach(s => s.classList.remove('active'));
@@ -226,13 +219,17 @@
     function nextStep(type) {
       if (type === 'postpill') override = true;
       else if (type) scores[type] = (scores[type] || 0) + 1;
-      step++;
-      if (step < totalSteps) showScreen(step);
-      else showScreen(totalSteps);
+      stepIndex++;
+      if (stepIndex <= totalQuestions) {
+        showScreen(stepIndex);
+      } else {
+        // move to email screen
+        showScreen(totalQuestions + 1);
+      }
     }
 
     document.getElementById('btn-start').addEventListener('click', () => {
-      step = 0;
+      stepIndex = 1;
       showScreen(1);
     });
 
@@ -251,14 +248,17 @@
       }
       err.style.display = 'none';
 
-      const key = override ? 'postpill' : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
+      const key = override
+        ? 'postpill'
+        : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
       const label = resultLabels[key];
 
       window._learnq.push(['identify',  { email, source_content_result: label }]);
       window._learnq.push(['subscribe', { listId: KLAV_LIST_ID, email }]);
 
       document.getElementById('result-link').href = redirectMap[key];
-      showScreen(screens.length - 1);
+      // show result
+      showScreen(totalQuestions + 2);
     });
   </script>
 </body>
