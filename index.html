@@ -14,16 +14,16 @@
   <!-- Klaviyo Snippet -->
   <script>
     (function(){
-      var _learnq = window._learnq = window._learnq||[];
-      if (!_learnq.init) {
+      var _learnq=window._learnq=window._learnq||[];
+      if(!_learnq.init){
         ["identify","track","trackForm","page","subscribe"].forEach(function(m){
-          _learnq[m] = function(){ _learnq.push([m].concat(Array.from(arguments))); };
+          _learnq[m]=function(){_learnq.push([m].concat(Array.prototype.slice.call(arguments,0)));};
         });
-        var s = document.createElement("script");
-        s.async = true;
-        s.src = "https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=S4cYEr";
+        var s=document.createElement("script");
+        s.async=true;
+        s.src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=S4cYEr";
         document.head.appendChild(s);
-        _learnq.init = true;
+        _learnq.init=true;
       }
     })();
   </script>
@@ -41,13 +41,13 @@
     body{margin:0;font-family:var(--font-body);color:var(--color-text);line-height:1.5;}
     .quiz-container{max-width:480px;margin:0 auto;padding:calc(var(--spacing)*2);}
     .counter{font-size:1rem;margin-bottom:var(--spacing);text-align:right;}
-    .screen{display:none;}
-    .screen.active{display:block;}
+    .screen{display:none;} .screen.active{display:block;}
     h1{font-family:var(--font-heading);font-size:2rem;margin-bottom:var(--spacing);}
     h2{font-family:var(--font-heading);font-size:1.25rem;margin-bottom:calc(var(--spacing)*0.5);}
     p{margin-bottom:var(--spacing);}
-    .btn{display:block;width:100%;padding:var(--spacing);margin:calc(var(--spacing)*0.5) 0;font-size:1rem;
-         border:none;border-radius:8px;background:var(--color-yes);color:#fff;cursor:pointer;font-family:var(--font-body);}
+    .btn{display:block;width:100%;padding:var(--spacing);margin:calc(var(--spacing)*0.5) 0;
+         font-size:1rem;border:none;border-radius:8px;background:var(--color-yes);color:#fff;
+         cursor:pointer;font-family:var(--font-body);}
     .btn-secondary{background:var(--color-secondary);color:#fff;margin-bottom:0;}
     .btn-not-sure{background:#A93923;color:#fff;margin:calc(var(--spacing)*0.25) 0 var(--spacing);}
     label,input{display:block;width:100%;margin-bottom:var(--spacing);font-size:1rem;color:var(--color-text);}
@@ -64,7 +64,7 @@
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
       <img src="https://lq3-production01.s3-accelerate.amazonaws.com/lead_quizzes_3.0/cover_page/0003/93/8d42d39e57b245d87302f661b5ee17c60af511dd.jpeg"
            alt="Quiz Cover"
-           style="width:100%; border-radius:12px; margin-bottom:var(--spacing)" />
+           style="width:100%;border-radius:12px;margin-bottom:var(--spacing)" />
       <button id="btn-start" class="btn">Get My Personalized Plan</button>
     </div>
 
@@ -161,8 +161,8 @@
     </div>
     <div class="screen" data-step="16">
       <h2>16. I suffer from headaches, migraines or unexplained fatigue</h2>
-      <button class="btn" data-type="inflammatory">Yes</button>
-      <button class="btn btn-secondary" data-type="">No</button>
+      <button class="btn" data-type="inflammatory">Yes</button**
+      ><button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="17">
@@ -172,7 +172,7 @@
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
     <div class="screen" data-step="18">
-      <h2>18. I have had abnormal thyroid hormones on blood tests</h2>
+      <h2>18. I have had abnormal thyroid hormones on blood tests</h2**>
       <button class="btn" data-type="inflammatory">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
@@ -193,8 +193,8 @@
       <h2>21. My symptoms started after using hormonal birth control</h2>
       <button class="btn" data-type="postpill">Yes</button>
       <button class="btn btn-secondary" data-type="">No</button>
-      <button class="btn btn-not-sure" data-type="">Not Sure</button>
-    </div>
+      <button class="btn btn-not-sure" data-type="">Not Sure</button**
+    ></div>
     <div class="screen" data-step="22">
       <h2>22. Before taking hormonal birth control, I had regular periods</h2>
       <button class="btn" data-type="">Yes</button>
@@ -207,9 +207,7 @@
       <button class="btn btn-secondary" data-type="">No</button>
       <button class="btn btn-not-sure" data-type="">Not Sure</button>
     </div>
-  </div>
 
- 
     <!-- Email Capture (step 24) -->
     <div class="screen" id="screen-email">
       <h2>Almost done!</h2>
@@ -218,78 +216,95 @@
       <input id="email" type="email" placeholder="you@example.com" required />
       <button id="btn-submit-email" class="btn">Get My Personalized Plan</button>
       <p id="email-error" style="color:var(--color-secondary);display:none;">
-        Please enter a valid email.
-      </p>
+        Please enter a valid email.</p>
+    </div>
+
+    <!-- Results (step 25) -->
+    <div class="screen" id="screen-result">
+      <h2>Your result is ready!</h2>
+      <button id="btn-view-results" class="btn">View My Results</button>
     </div>
   </div>
 
   <script defer>
-    const TOTAL = 23;
-    let step = 0, scores = {}, override = false;
-    const screens = document.querySelectorAll('.screen'),
+    const TOTAL = 23,
+          screens = document.querySelectorAll('.screen'),
           qs      = document.querySelectorAll('[data-step]'),
-          counter = document.getElementById('counter');
-    const redirectMap = {
-      insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
-      inflammatory: 'https://nourishednaturalhealth.com/pages/inflammatory-quiz-result',
-      adrenal:      'https://nourishednaturalhealth.com/pages/adrenal-quiz-result',
-      postpill:     'https://nourishednaturalhealth.com/pages/post-pill-quiz-result'
-    };
-    const labels = {
-      insulin:      'Insulin Resistant PCOS',
-      inflammatory: 'Inflammatory PCOS',
-      adrenal:      'Adrenal PCOS',
-      postpill:     'Post-Pill PCOS'
-    };
+          counter = document.getElementById('counter'),
+          redirectMap = {
+            insulin:      'https://nourishednaturalhealth.com/pages/insulin-resistant-quiz-result-v1',
+            inflammatory: 'https://nourishednaturalhealth.com/pages/inflammatory-quiz-result',
+            adrenal:      'https://nourishednaturalhealth.com/pages/adrenal-quiz-result',
+            postpill:     'https://nourishednaturalhealth.com/pages/post-pill-quiz-result'
+          },
+          labels = {
+            insulin:      'Insulin Resistant PCOS',
+            inflammatory: 'Inflammatory PCOS',
+            adrenal:      'Adrenal PCOS',
+            postpill:     'Post-Pill PCOS'
+          };
+    let step=0,scores={},override=false;
 
     function updateCtr(){
-      counter.textContent = (step>0 && step<=TOTAL) ? `Q${step}/${TOTAL}` : '';
+      counter.textContent = step>0 && step<=TOTAL
+        ? `Q${step}/${TOTAL}` : '';
     }
     function show(i){
       screens.forEach(s=>s.classList.remove('active'));
       screens[i].classList.add('active');
       updateCtr();
     }
+
     function next(type){
       if(type==='postpill') override=true;
       else if(type) scores[type]=(scores[type]||0)+1;
       step++;
       if(step<=TOTAL) show(step);
-      else show(TOTAL+1);  // show email screen
+      else show(TOTAL+1); // show email screen
     }
 
-    document.getElementById('btn-start').onclick = () => { step=1; show(1); };
-    qs.forEach(q =>
-      q.querySelectorAll('button').forEach(b =>
-        b.onclick = ()=> next(b.dataset.type)
-      )
+    document.getElementById('btn-start').onclick = ()=>{step=1;show(1);};
+    qs.forEach(q=>
+      q.querySelectorAll('button').forEach(b=>b.onclick=()=>next(b.dataset.type))
     );
 
+    // email screen submit
     document.getElementById('btn-submit-email').onclick = ()=>{
-      const email = document.getElementById('email').value.trim(),
-            err   = document.getElementById('email-error');
+      const email=document.getElementById('email').value.trim(),
+            err=document.getElementById('email-error');
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
         err.style.display='block'; return;
       }
       err.style.display='none';
-      // figure result
-      const key = override
-        ? 'postpill'
-        : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
-      const label = labels[key];
-      // identify & subscribe
+
+      // determine key/label
+      const key=override
+        ?'postpill'
+        :Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin',
+            label=labels[key];
+
+      // Klaviyo
       window._learnq.push(['identify',{
         email,
-        source_content_result: label,
-        accepts_marketing: true,
-        email_status: 'subscribed'
+        source_content_result:label,
+        accepts_marketing:true,
+        email_status:'subscribed'
       }]);
       window._learnq.push(['subscribe',{
-        listId: 'URJwDU',
+        listId:'URJwDU',
         email,
         confirm_optin:true
       }]);
-      // break out and redirect parent
+
+      // show result button screen
+      show(TOTAL+2);
+    };
+
+    // button redirect
+    document.getElementById('btn-view-results').onclick = ()=>{
+      const key=override
+        ?'postpill'
+        :Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin';
       window.top.location.href = redirectMap[key];
     };
   </script>
