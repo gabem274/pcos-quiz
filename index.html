@@ -37,48 +37,110 @@
       --font-heading: 'Fraunces', serif;
       --font-body: 'DM Sans', sans-serif;
     }
-    *,*::before,*::after { box-sizing: border-box; }
-    body { margin:0; font-family:var(--font-body); color:var(--color-text); line-height:1.5; }
-    .quiz-container { max-width:480px; margin:0 auto; padding:calc(var(--spacing)*2); }
-    .counter { font-size:1rem; margin-bottom:var(--spacing); text-align:right; }
-    .screen { display:none; }
-    .screen.active { display:block; }
-    h1 { font-family:var(--font-heading); font-size:2rem; margin-bottom:var(--spacing); }
-    h2 { font-family:var(--font-heading); font-size:1.25rem; margin-bottom:calc(var(--spacing)*0.5); }
-    p { margin-bottom:var(--spacing); }
-    .btn { display:block; width:100%; padding:var(--spacing); margin:calc(var(--spacing)*0.5) 0;
-           font-size:1rem; border:none; border-radius:8px; background:var(--color-yes); color:#fff;
-           cursor:pointer; font-family:var(--font-body); text-align:center; text-decoration:none; }
-    .btn-secondary { background:var(--color-secondary); color:#fff; margin-bottom:0; }
-    .btn-not-sure { background:#A93923; color:#fff; margin:calc(var(--spacing)*0.25) 0 var(--spacing); }
-    label,input { display:block; width:100%; margin-bottom:var(--spacing); font-size:1rem; color:var(--color-text); }
-    input { padding:calc(var(--spacing)*0.5); border:1px solid #ccc; border-radius:4px; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+    .quiz-container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: calc(var(--spacing) * 2);
+    }
+    .counter {
+      font-size: 1rem;
+      margin-bottom: var(--spacing);
+      text-align: right;
+    }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: var(--spacing);
+    }
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: calc(var(--spacing) * 0.5);
+    }
+    p { margin-bottom: var(--spacing); }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: var(--spacing);
+      margin: calc(var(--spacing) * 0.5) 0;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--color-yes);
+      color: #fff;
+      cursor: pointer;
+      font-family: var(--font-body);
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-secondary {
+      background: var(--color-secondary);
+      color: #fff;
+      margin-bottom: 0;
+    }
+    .btn-not-sure {
+      background: #A93923;
+      color: #fff;
+      margin: calc(var(--spacing) * 0.25) 0 var(--spacing);
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: var(--spacing);
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+    input {
+      padding: calc(var(--spacing) * 0.5);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-    /* Compact Cover */
+    /* Compact Cover: no top padding, content aligned to top */
     #screen-cover {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      padding: 1rem;
-      min-height: 50vh;
+      padding: 0 var(--spacing) var(--spacing) var(--spacing);
       text-align: center;
     }
-    #screen-cover h1 { margin-bottom:0.5rem; font-size:1.75rem; }
-    #screen-cover p  { margin-bottom:1rem; font-size:1rem; }
-    #screen-cover img {
-      width:100%; max-height:120px; object-fit:cover; margin-bottom:1rem;
+    #screen-cover h1 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
     }
-    @media (max-width:480px) {
-      #screen-cover img { display:none; }
-      #screen-cover { padding:0.5rem; min-height:40vh; }
-      #screen-cover h1 { font-size:1.5rem; }
-      #screen-cover p  { font-size:0.9rem; margin-bottom:0.75rem; }
+    #screen-cover p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    #screen-cover img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 480px) {
+      #screen-cover {
+        padding: 0.5rem var(--spacing) var(--spacing) var(--spacing);
+      }
+      #screen-cover h1 { font-size: 1.5rem; }
+      #screen-cover p  { font-size: 0.9rem; margin-bottom: 0.75rem; }
     }
   </style>
 </head>
 <body>
   <div class="quiz-container">
+    <!-- Compact Cover -->
     <div class="screen active" id="screen-cover">
       <h1>Get Your Personalized Vitamin Protocol</h1>
       <p>Discover which vitamins are right for your unique PCOS type and get a free report on all the lifestyle changes you can make to get rid of your symptoms forever.</p>
@@ -91,7 +153,7 @@
     </div>
 
     <div id="counter" class="counter"></div>
-    
+
 
     <!-- Questions 1–23 -->
     <div class="screen" data-step="1">
@@ -243,7 +305,7 @@
       <p id="email-error" style="color:var(--color-secondary);display:none;">Please enter a valid email.</p>
     </div>
 
-    <!-- Results (step 25) -->
+   <!-- Results (step 25) -->
     <div class="screen" id="screen-result">
       <h2>Your result is ready!</h2>
       <a id="result-link" class="btn" target="_top" href="#">View My Results</a>
@@ -267,46 +329,47 @@
             adrenal:      'Adrenal PCOS',
             postpill:     'Post-Pill PCOS'
           };
-    let step=0, scores={}, override=false;
+    let step = 0, scores = {}, override = false;
 
-    function updateCounter(){
-      counter.textContent = (step>0&&step<=TOTAL)?`Q${step}/${TOTAL}`:'';
+    function updateCounter() {
+      counter.textContent = (step > 0 && step <= TOTAL) ? `Q${step}/${TOTAL}` : '';
     }
-    function showScreen(i){
-      screens.forEach(s=>s.classList.remove('active'));
+    function showScreen(i) {
+      screens.forEach(s => s.classList.remove('active'));
       screens[i].classList.add('active');
       updateCounter();
     }
-    function next(type){
-      if(type==='postpill') override=true;
-      else if(type) scores[type]=(scores[type]||0)+1;
+    function next(type) {
+      if (type === 'postpill') override = true;
+      else if (type) scores[type] = (scores[type] || 0) + 1;
       step++;
-      if(step<=TOTAL) showScreen(step);
-      else showScreen(TOTAL+1);
+      if (step <= TOTAL) showScreen(step);
+      else showScreen(TOTAL + 1); // email screen
     }
 
-    document.getElementById('btn-start').addEventListener('click',()=>{
-      step=1; showScreen(1);
+    document.getElementById('btn-start').addEventListener('click', () => {
+      step = 1; showScreen(1);
     });
-    qs.forEach(q=>
-      q.querySelectorAll('button').forEach(b=>
-        b.addEventListener('click',()=> next(b.dataset.type))
+    qs.forEach(q =>
+      q.querySelectorAll('button').forEach(b =>
+        b.addEventListener('click', () => next(b.dataset.type))
       )
     );
 
-    document.getElementById('btn-submit-email').addEventListener('click',()=>{
+    document.getElementById('btn-submit-email').addEventListener('click', () => {
       const email = document.getElementById('email').value.trim(),
             err   = document.getElementById('email-error');
-      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
-        err.style.display='block'; return;
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        err.style.display = 'block';
+        return;
       }
-      err.style.display='none';
+      err.style.display = 'none';
       const key = override
-            ? 'postpill'
-            : Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin',
-            label = labels[key];
-      const today = new Date().toISOString().split('T')[0];
-      window._learnq.push(['identify',{
+        ? 'postpill'
+        : Object.entries(scores).sort((a,b) => b[1] - a[1])[0]?.[0] || 'insulin',
+            label = labels[key],
+            today = new Date().toISOString().split('T')[0];
+      window._learnq.push(['identify', {
         email,
         source_content_result: label,
         accepts_marketing: true,
@@ -314,14 +377,14 @@
         "PCOS Quiz Complete Date": today,
         "Tag - Quiz Complete": "Quiz Complete"
       }]);
-      window._learnq.push(['subscribe',{
-        listId:'URJwDU',
+      window._learnq.push(['subscribe', {
+        listId: 'URJwDU',
         email,
-        confirm_optin:true
+        confirm_optin: true
       }]);
       const link = document.getElementById('result-link');
       link.href = redirectMap[key];
-      showScreen(TOTAL+2);
+      showScreen(TOTAL + 2);
     });
   </script>
 </body>
