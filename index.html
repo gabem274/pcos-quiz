@@ -98,12 +98,6 @@
       <p id="email-error">Please enter a valid email.</p>
       <button id="btn-email" class="btn" type="button">Generate PCOS Meal Plans</button>
     </div>
-
-    <!-- Result -->
-    <div class="screen" id="screen-result">
-      <h2>Your meal plan is on its way!</h2>
-      <a id="result-link" class="btn" href="https://pay.rev.cat/ccbolpvxvgnlfzbl/$RCAnonymousID:75481a85939c41cc88b032f54b68ab23">Get Your Meal Plans</a>
-    </div>
   </div>
 
   <script>
@@ -111,7 +105,7 @@
       const order = [
         'screen-cover','screen-health-goal','screen-age','screen-height',
         'screen-current-weight','screen-target-weight','screen-pcos-question',
-        'screen-email','screen-result'
+        'screen-email'
       ];
       let step = 0;
       const responses = { scores: {}, override: false };
@@ -122,19 +116,14 @@
       const next = () => show(order[++step]);
 
       document.getElementById('btn-start').onclick = next;
-
-      document.querySelectorAll('#screen-health-goal .btn').forEach(btn => btn.onclick = () => {
-        responses.healthGoal = btn.dataset.value; next();
-      });
-
+      document.querySelectorAll('#screen-health-goal .btn').forEach(btn => btn.onclick = () => { responses.healthGoal = btn.dataset.value; next(); });
       document.getElementById('btn-age').onclick = () => {
         const v = document.getElementById('input-age').value.trim(); if (!v) return; responses.age = v; next();
       };
       document.getElementById('btn-height').onclick = () => {
         const ft = document.getElementById('input-height-ft').value.trim();
         const inch = document.getElementById('input-height-in').value.trim();
-        if (!ft || !inch) return;
-        responses.height = `${ft}ft ${inch}in`; next();
+        if (!ft || !inch) return; responses.height = `${ft}ft ${inch}in`; next();
       };
       document.getElementById('btn-weight').onclick = () => {
         const v = document.getElementById('input-weight-lbs').value.trim(); if (!v) return; responses.currentWeight = v; next();
@@ -149,13 +138,14 @@
       document.getElementById('btn-email').onclick = () => {
         const emailEl = document.getElementById('email'); const email = emailEl.value.trim();
         const err = document.getElementById('email-error');
-        if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.style.display='block'; return; }
-        err.style.display='none'; responses.email = email;
-        const key = responses.override ? 'postpill' : Object.entries(responses.scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||'insulin';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.style.display = 'block'; return; }
+        err.style.display = 'none'; responses.email = email;
+        const key = responses.override ? 'postpill' : Object.entries(responses.scores).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'insulin';
         responses['PCOS Type'] = key;
-        window._learnq.push(['identify',{ email, ...responses }]);
-        window._learnq.push(['subscribe',{ listId:'URJwDU', email, confirm_optin:false }]);
-        next();
+        window._learnq.push(['identify', { email, ...responses }]);
+        window._learnq.push(['subscribe', { listId: 'URJwDU', email, confirm_optin: false }]);
+        // Redirect immediately
+        window.location.href = 'https://pay.rev.cat/ccbolpvxvgnlfzbl/$RCAnonymousID:75481a85939c41cc88b032f54b68ab23';
       };
     });
   </script>
